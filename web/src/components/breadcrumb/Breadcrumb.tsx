@@ -33,6 +33,7 @@ export function QuayBreadcrumb() {
   };
 
   const fetchBreadcrumb = (existingBreadcrumbs, nextBreadcrumb) => {
+    console.log("existingBreadcrumbs", existingBreadcrumbs, "nextBreadcrumb", nextBreadcrumb);
     // if existingBreadcrumbs.len is 0 -> next entry is either organization or repository
     if (existingBreadcrumbs.length == 0) {
       nextBreadcrumb['title'] = nextBreadcrumb['pathname'].split('/').at(-1);
@@ -61,6 +62,7 @@ export function QuayBreadcrumb() {
   const buildFromRoute = () => {
     const result = [];
     const history = [];
+    console.log("routerBreadcrumbs", routerBreadcrumbs);
     for (let i = 0; i < routerBreadcrumbs.length; i++) {
       if (result.length == 4) {
         break;
@@ -106,6 +108,7 @@ export function QuayBreadcrumb() {
     const history = [];
     const newItem = currentBreadcrumbItem();
 
+    console.log("browserHistory", JSON.stringify(browserHistory));
     for (const value of Array.from(browserHistory.values())) {
       if (result.length == 3) {
         break;
@@ -116,11 +119,14 @@ export function QuayBreadcrumb() {
       if (newObj['active']) {
         break;
       }
+      console.log("pushing", newObj);
       result.push(newObj);
       history.push(newObj);
     }
+    console.log("pushing", newItem);
     result.push(newItem);
     history.push(newItem);
+    console.log("result", result);
     setBreadcrumbItems(result);
     setBrowserHistoryState(history);
   };
